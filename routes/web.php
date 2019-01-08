@@ -15,4 +15,6 @@
     return view('welcome');
 });*/
 
-Route::get("/{any?}", "ChatController@index")->where("any", ".*");
+Route::get("/{any?}", function () {
+    return view("index");
+})->where("any", ".*");

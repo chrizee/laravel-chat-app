@@ -6,10 +6,10 @@
                 <!-- Sidebar user panel -->
                 <div class="user-panel">
                     <div class="pull-left image">
-                        <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                        <img :src="user.picture" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
-                        <p>Alexander Pierce</p>
+                        <p v-text="user.name"></p>
                         <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                     </div>
                 </div>
@@ -33,13 +33,23 @@
                         </router-link>
                     </li>
                     <li>
-                        <router-link to="/chat">
+                        <router-link :to="{name: 'chat'}">
                             <i class="fa fa-comment"></i> <span>Chat</span>
                         </router-link>
                     </li>
                     <li>
-                        <router-link to="/add-friend">
+                        <router-link :to="{name: 'add-friend'}">
                             <i class="fa fa-comment"></i> <span>Add Friend</span>
+                        </router-link>
+                    </li>
+                    <li>
+                        <router-link :to="{name: 'register'}">
+                            <i class="fa fa-comment"></i> <span>Register</span>
+                        </router-link>
+                    </li>
+                    <li>
+                        <router-link :to="{name: 'login'}">
+                            <i class="fa fa-comment"></i> <span>Login</span>
                         </router-link>
                     </li>
                 </ul>
@@ -50,9 +60,13 @@
 </template>
 
 <script>
+    import {mapState} from 'vuex';
     export default {
         mounted() {
             console.log("sidebar mounted");
+        },
+        computed: {
+            ...mapState(['user'])
         }
     }
 </script>

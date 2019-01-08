@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Friends extends Model
 {
+    protected $fillable = ['friend_id', 'user_id'];
    	public function user()
     {
         return $this->user1->merge($this->user2);

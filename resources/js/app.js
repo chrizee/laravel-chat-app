@@ -11,6 +11,7 @@ import home from './components/home';
 import footer from './components/footer';
 import store from './store';
 import router from './router';
+import axios from "axios";
 
 require('./bootstrap');
 
@@ -32,6 +33,7 @@ Vue.component("headercomponent",header);
 Vue.component("sidebar", sidebar);
 Vue.component("home", home);
 Vue.component("footercomponent", footer);
+Vue.use(axios);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

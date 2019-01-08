@@ -4,25 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Friends;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class FriendsController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
     {
         //
     }
@@ -35,7 +27,30 @@ class FriendsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            "friend_id" => "required|exists:users,id"
+        ]);
+
+        if($validator->fails()) {
+            return response()->json(['success' => false, 'error' => $validator->errors(), "success" => false], 401);
+        }
+        $user = auth()->user();
+        //prevent duplicate conversations, check if a conversation exist between the two users before creating a new one
+        $check = Friends::where([
+                ["user_id", '=', $user->id],
+                ["friend_id", '=', $request->input("friend_id")]
+            ]
+        )->orWhere([
+                ["friend_id", '=', $user->id],
+                ["user_id", '=', $request->input("friend_id")]
+            ]
+        )->get();
+        if(count($check) == 0) {       
+            $user->friend()->create([
+                "friend_id" => $request->input('friend_id')
+            ]);
+        }
+        return response()->json($user);
     }
 
     /**
