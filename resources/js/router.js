@@ -1,7 +1,3 @@
-/**
- * Created by OKORO EFE on 1/5/2019.
- */
-
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './components/home';
@@ -11,6 +7,7 @@ import Register from  './components/register';
 import Login from  './components/login';
 import Profile from  './components/Profile';
 import Logout from  './components/logout';
+import SingleChat from './components/singlechat';
 
 Vue.use(Router);
 
@@ -27,6 +24,12 @@ let router = new Router({
             path: "/chat",
             name: "chat",
             component: Chat,
+            children: [
+                {
+                    path: ":id",
+                    component: SingleChat,
+                }
+            ],
             meta: { requiresAuth: true}
         },
         {

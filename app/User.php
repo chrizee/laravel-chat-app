@@ -36,11 +36,11 @@ class User extends Authenticatable
         return $this->hasMany(Friends::class);
     }
     public function friend1() {
-        return $this->hasMany(App\User::class, 'friends', "user_id", "friend_id");
+        return $this->belongsToMany(User::class, 'friends', "user_id", "friend_id");
     }
 
     public function friend2() {
-        return $this->hasMany(App\User::class, 'friends', "friend_id" , "user_id");
+        return $this->belongsToMany(User::class, 'friends', "friend_id" , "user_id");
     }
 
     public function friends() {
@@ -48,6 +48,6 @@ class User extends Authenticatable
     }
 
     public function chat() {
-        return $this->hasMany(App\Chat::class);
+        return $this->hasMany(Chat::class);
     }
 }

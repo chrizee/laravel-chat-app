@@ -34,13 +34,12 @@
                         <!-- /.box-header -->
                         <div class="box-body no-padding">
                           <ul class="users-list clearfix" v-if="otherUsers">
-                            <li v-for="(user, index) in otherUsers" :key="index">
-                            
+                            <li v-for="(user, index) in otherUsers" :key="index">                            
                               <div class="hovereffect">
                                 <img :src="user.picture" alt="User Image">
                                 <div class="overlay2">
                                 <p>
-                                  <button @click="addFriend(user.id)" class="btn btn-primary" title="add friend"><i class="fa fa-plus"></i></button>
+                                  <button @click="addFriend(user)" class="btn btn-primary" title="add friend"><i class="fa fa-plus"></i></button>
                                   </p>
                                 </div>
                               </div>  
@@ -52,7 +51,7 @@
                           <!-- /.users-list -->
                         </div>
                         <!-- /.box-body -->
-                        <div class="box-footer text-center" v-show="nextUrl">
+                        <div class="box-footer text-center" v-show="urls.nextFriendsUrl">
                           <a href="#" class="uppercase" @click.prevent="loadNext">View more Users</a>
                         </div>
                         <!-- /.box-footer -->
@@ -73,14 +72,16 @@
         name: "AddFriend",
         data() {
           return {
-            nextUrl: "api/users",   //hold the next link to load paginated users from.defaults to the first
+            //nextUrl: "api/users",   //hold the next link to load paginated users from.defaults to the first
           }
         },
-        beforeRouteEnter(to, from, next) {  
+        mounted() {
+          this.$store.dispatch("getUsers");
+        },
+        /*beforeRouteEnter(to, from, next) {  
         //todo: move this to when the component is loaded and check if other users are available before sending 
         //the first request
             //get all friends here
-            axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('jwt');
             axios.get("api/users")
             .then((res) => {
                 let data = res.data;
@@ -94,38 +95,17 @@
             .catch((err) => {
                 console.log(err);
             });
-
-        },
+        },*/
         computed: {
-            ...mapState(['otherUsers'])
+          ...mapState(['otherUsers', 'urls'])
         },
         methods: {
           loadNext() {
-            if(this.nextUrl) {
-              axios.get(this.nextUrl)
-              .then((res) => {
-                let data = res.data;
-                if(data.data) {
-                  this.$store.commit("UPDATEOTHERUSERS", data.data);
-                  this.nextUrl = data.links.next;
-                }
-              })
-              .catch((err) => {
-                console.log(err);
-              })
-            }
+            //fetch more users when users
+            this.$store.dispatch("getUsers");            
           },
-          addFriend(id) {
-            let form = new FormData();
-            form.append("friend_id", id);
-            axios.post("api/addfriend", form)
-            .then((res) => {
-              let data = res.data;
-              console.log(data);
-            })
-            .catch((err) => {
-              console.log(err)
-            })
+          addFriend(user) {
+            this.$store.dispatch("addFriend", user);
           }
         }
     }

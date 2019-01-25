@@ -77,10 +77,18 @@ class UserController extends Controller
 
     }
 
+    /**
+    * get all users that are not friends with the current user, removing the current user
+    */
     public function getUsers(Request $request)
     {
         $user = auth()->user();
-        $users = User::latest()->where("id", "!=", $user->id)->paginate(20);
+        //get the id of all the user's friends
+        $friends = $user->friends()->pluck('id');
+        //add the current user to the array to filter from
+        $friends->prepend($user->id);
+        //get users not friends with the current user and not the current user itself
+        $users = User::latest()->whereNotIn('id', $friends)->paginate(20);
         $res = [
             'success' => false,
             'message' => "something went wrong while getting users"

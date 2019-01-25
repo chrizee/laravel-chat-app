@@ -10,13 +10,15 @@ class FriendsController extends Controller
 {
 
     /**
-     * Display a listing of the resource.
+     * get the friends of the currently authenticated user
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getFriends()
     {
-        //
+        $user = auth()->user();
+        $friends = $user->friends();
+        return response()->json(['success' => true, 'friends' => $friends]);
     }
 
     /**
@@ -32,10 +34,10 @@ class FriendsController extends Controller
         ]);
 
         if($validator->fails()) {
-            return response()->json(['success' => false, 'error' => $validator->errors(), "success" => false], 401);
+            return response()->json(['error' => $validator->errors(), "success" => false], 401);
         }
         $user = auth()->user();
-        //prevent duplicate conversations, check if a conversation exist between the two users before creating a new one
+        //prevent duplicate friends, check if a friendship exist between the two users before creating a new one
         $check = Friends::where([
                 ["user_id", '=', $user->id],
                 ["friend_id", '=', $request->input("friend_id")]
@@ -50,7 +52,7 @@ class FriendsController extends Controller
                 "friend_id" => $request->input('friend_id')
             ]);
         }
-        return response()->json($user);
+        return response()->json(['success' => true]);
     }
 
     /**

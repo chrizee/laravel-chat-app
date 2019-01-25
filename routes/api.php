@@ -19,6 +19,9 @@ Route::group(['middleware' => "auth:api"], function() {
 
     Route::get("users", "UserController@getUsers")->name("get-users");
     Route::get("logout", "UserController@logout")->name("logout");
+    Route::get("friends", "FriendsController@getFriends")->name("getAllFriends");
+    Route::post("getchats", "ChatController@index")->name("getChat");
+    Route::post("sendchat", "ChatController@store")->name("storeChat");
     Route::post("addfriend", "FriendsController@store")->name("add-friend");
 
 });

@@ -27,7 +27,7 @@ window.Vue = require('vue');
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-
+axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('jwt');
 Vue.component('App', App);
 Vue.component("headercomponent",header);
 Vue.component("sidebar", sidebar);
