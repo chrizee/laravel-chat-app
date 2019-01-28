@@ -27,29 +27,36 @@
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu">
                     <li class="header">MAIN NAVIGATION</li>
-                    <li class="active">
-                        <router-link to="/">
-                            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                    
+                        <router-link :to="{name : 'home'}" tag="li" exact>
+                            <a>   
+                                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                            </a>
                         </router-link>
-                    </li>
-                    <li>
-                        <router-link :to="{name: 'chat'}">
-                            <i class="fa fa-comment"></i> <span>Chat</span>
+                    
+                    
+                        <router-link tag="li" :to="{name: 'chat'}">
+                            <a>
+                                <i class="fa fa-comment"></i> <span>Chat</span>
+                            </a>
                         </router-link>
-                    </li>
-                    <li>
-                        <router-link :to="{name: 'add-friend'}">
-                            <i class="fa fa-comment"></i> <span>Add Friend</span>
+                    
+                        <router-link tag="li" :to="{name: 'add-friend'}">
+                            <a>
+                                <i class="fa fa-comment"></i> <span>Add Friend</span>
+                            </a>
                         </router-link>
-                    </li>
-                    <li>
-                        <router-link :to="{name: 'register'}">
-                            <i class="fa fa-comment"></i> <span>Register</span>
+                    
+                        <router-link tag="li" :to="{name: 'register'}">
+                            <a>
+                                <i class="fa fa-comment"></i> <span>Register</span>
+                            </a>
                         </router-link>
-                    </li>
-                    <li>
-                        <router-link :to="{name: 'login'}">
-                            <i class="fa fa-comment"></i> <span>Login</span>
+                    
+                        <router-link tag="li" :to="{name: 'login'}">
+                            <a>
+                                <i class="fa fa-comment"></i> <span>Login</span>
+                            </a>
                         </router-link>
                     </li>
                 </ul>

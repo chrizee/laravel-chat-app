@@ -78,24 +78,6 @@
         mounted() {
           this.$store.dispatch("getUsers");
         },
-        /*beforeRouteEnter(to, from, next) {  
-        //todo: move this to when the component is loaded and check if other users are available before sending 
-        //the first request
-            //get all friends here
-            axios.get("api/users")
-            .then((res) => {
-                let data = res.data;
-                if(data.data) {
-                    next(vm => {
-                        vm.$store.commit("SETOTHERUSERS", data.data);
-                        vm.nextUrl = data.links.next;   //
-                    });
-                }
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-        },*/
         computed: {
           ...mapState(['otherUsers', 'urls'])
         },

@@ -55,7 +55,7 @@
 <script>
     import ChatComposer from './ChatComposer';
     import {mapState} from 'vuex';
-	export default {
+	  export default {
         data: function() {
             return {
                 scroll: 'scroll',
@@ -82,13 +82,21 @@
         },
     		mounted() {
           let id = this.$route.params.id;
+          Echo.private(`chat.${id}.${this.user.id}`)
+              .listen("BroadcastChat", (e) => {
+                console.log(e);return;
+                  this.chats.push(e.chat);
+                  //todo mark as read when recieved if modal is open
+                  this.$emit("unread", this.friend.id, 1, true);
+                  this.scrollDown();
+                  this.$emit("reorder", this.friend);
+              });
           //this.fetchChat(id); 
     		},
         beforeRouteEnter(to, from, next) {
           let friendId = to.params.id;
           const form = new FormData;
             form.append("friend_id", friendId);
-            //form.append("skip", skip);
             axios.post("api/getchats", form)
                 .then((response) => {
                     let data = response.data;

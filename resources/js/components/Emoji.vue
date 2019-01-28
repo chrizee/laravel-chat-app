@@ -31,8 +31,10 @@
 </template>
 
 <script>
+import { EmojiPicker } from 'vue-emoji-picker'
     export default {
-        name: emoji,
+        name: "emoji",
+        components: {EmojiPicker},
         props: {
             invokertop: {
                 type: Number,

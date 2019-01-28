@@ -6,7 +6,6 @@ export default {
             axios.post("api/logout")
                 .then((res) => {
                     let data = res.data;
-                    console.log(data);
                 })
                 .catch((error) => {
                     console.log(error);
@@ -113,7 +112,6 @@ export default {
               })
               .then((res) => {
                 let data = res.data;
-                console.log(data);
                 if(data.success) {
                   commit("PUSHTOCHAT", {friendId, payload: data.chat, top: false});                              
                   if(this.photo !== '') {

@@ -11,7 +11,7 @@
           </div>
           <input type="file" name="photo" id="photo">
           <label for="photo" title="add image"><i class="fa fa-image"></i></label>
-          <!-- <emoji @tie="append"></emoji> -->
+          <emoji @tie="append"></emoji>
           <span class="input-group-btn">
               <button type="button" class="btn btn-warning btn-flat" @click="sendChat" :disabled="isDisabled">Send <i class="fa fa-send"></i></button>
         </span>
@@ -22,10 +22,10 @@
 
 <script>
   import {mapState} from 'vuex';
-  //import emoji from "./emoji";
+  import emoji from "./Emoji";
     export default {
         name: "ChatComposer",
-        //components: {emoji},
+        components: {emoji},
         //props: ["sendroute", "friendid", "userid", "chats"],
         props: {
           friend: {
