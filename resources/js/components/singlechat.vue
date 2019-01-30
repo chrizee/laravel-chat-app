@@ -82,7 +82,8 @@
         },
     		mounted() {
           let id = this.$route.params.id;
-          Echo.private(`chat.${id}.${this.user.id}`)
+          console.log(id);
+          /*Echo.private(`chat.${id}.${this.user.id}`)
               .listen("BroadcastChat", (e) => {
                 console.log(e);return;
                   this.chats.push(e.chat);
@@ -90,7 +91,7 @@
                   this.$emit("unread", this.friend.id, 1, true);
                   this.scrollDown();
                   this.$emit("reorder", this.friend);
-              });
+              });*/
           //this.fetchChat(id); 
     		},
         beforeRouteEnter(to, from, next) {
@@ -134,6 +135,18 @@
                     this.$store.dispatch("getPreviousChats", {friendId: this.friend.id, url: this.message.next_page_url});
                 }
             }
+        },
+        created: function() {
+          Echo.private('chat')
+              .listen("BroadcastChat", (e) => {
+                console.log("enter");
+                console.log(e);
+                  this.chats.push(e.chat);
+                  //todo mark as read when recieved if modal is open
+                  this.$emit("unread", this.friend.id, 1, true);
+                  this.scrollDown();
+                  this.$emit("reorder", this.friend);
+              });
         }
 	}
 </script>

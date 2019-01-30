@@ -13,7 +13,8 @@ import store from './store';
 import router from './router';
 import axios from "axios";
 import NProgress from "nprogress";
-import '../../node_modules/nprogress/nprogress.css'
+import '../../node_modules/nprogress/nprogress.css';
+
 require('./bootstrap');
 
 window.Vue = require('vue');
@@ -34,13 +35,13 @@ axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getIte
 axios.interceptors.request.use(config => {
   NProgress.start()
   return config
-})
+});
 
 // before a response is returned stop nprogress
 axios.interceptors.response.use(response => {
   NProgress.done()
   return response
-})
+});
 Vue.component('App', App);
 Vue.component("headercomponent",header);
 Vue.component("sidebar", sidebar);

@@ -14,6 +14,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 class BroadcastChat implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
+    
     public $chat;
     /**
      * Create a new event instance.

@@ -3448,22 +3448,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   mounted: function mounted() {
-    var _this = this;
-
     var id = this.$route.params.id;
-    Echo.private("chat.".concat(id, ".").concat(this.user.id)).listen("BroadcastChat", function (e) {
-      console.log(e);
-      return;
-
-      _this.chats.push(e.chat); //todo mark as read when recieved if modal is open
-
-
-      _this.$emit("unread", _this.friend.id, 1, true);
-
-      _this.scrollDown();
-
-      _this.$emit("reorder", _this.friend);
-    }); //this.fetchChat(id); 
+    console.log(id);
+    /*Echo.private(`chat.${id}.${this.user.id}`)
+        .listen("BroadcastChat", (e) => {
+          console.log(e);return;
+            this.chats.push(e.chat);
+            //todo mark as read when recieved if modal is open
+            this.$emit("unread", this.friend.id, 1, true);
+            this.scrollDown();
+            this.$emit("reorder", this.friend);
+        });*/
+    //this.fetchChat(id); 
   },
   beforeRouteEnter: function beforeRouteEnter(to, from, next) {
     var friendId = to.params.id;
@@ -3510,6 +3506,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         });
       }
     }
+  },
+  created: function created() {
+    var _this = this;
+
+    Echo.private('chat').listen("BroadcastChat", function (e) {
+      console.log("enter");
+      console.log(e);
+
+      _this.chats.push(e.chat); //todo mark as read when recieved if modal is open
+
+
+      _this.$emit("unread", _this.friend.id, 1, true);
+
+      _this.scrollDown();
+
+      _this.$emit("reorder", _this.friend);
+    });
   }
 });
 
