@@ -3509,7 +3509,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   created: function created() {
     var _this = this;
 
-    window.Echo.channel('chat').listen("BroadcastChat", function (e) {
+    Echo.channels('chat').listen("BroadcastChat", function (e) {
       console.log("enter");
       console.log(e);
 

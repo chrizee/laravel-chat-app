@@ -136,7 +136,7 @@
             }
         },
         created: function() {
-          window.Echo.channel('chat')
+          Echo.channels('chat')
               .listen("BroadcastChat", (e) => {
                 console.log("enter");
                 console.log(e);
