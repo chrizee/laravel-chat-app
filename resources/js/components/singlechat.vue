@@ -82,7 +82,6 @@
         },
     		mounted() {
           let id = this.$route.params.id;
-          console.log(id);
           /*Echo.private(`chat.${id}.${this.user.id}`)
               .listen("BroadcastChat", (e) => {
                 console.log(e);return;
@@ -137,7 +136,7 @@
             }
         },
         created: function() {
-          Echo.private('chat')
+          window.Echo.channel('chat')
               .listen("BroadcastChat", (e) => {
                 console.log("enter");
                 console.log(e);

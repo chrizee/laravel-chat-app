@@ -70,7 +70,7 @@ class ChatController extends Controller
             'chat' => $chat,
             'friend_id' => $request->input("friend-id")
         ]);
-        broadcast(new BroadcastChat($chat));
+        //broadcast(new BroadcastChat($chat));
         return response()->json(["success" => true, "chat" => $chat] );
     }
 
