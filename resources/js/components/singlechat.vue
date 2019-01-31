@@ -141,10 +141,6 @@
                 console.log("enter");
                 console.log(e);
                   this.chats.push(e.chat);
-                  //todo mark as read when recieved if modal is open
-                  this.$emit("unread", this.friend.id, 1, true);
-                  this.scrollDown();
-                  this.$emit("reorder", this.friend);
               });
         }
 	}

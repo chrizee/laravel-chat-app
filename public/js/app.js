@@ -3513,14 +3513,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       console.log("enter");
       console.log(e);
 
-      _this.chats.push(e.chat); //todo mark as read when recieved if modal is open
-
-
-      _this.$emit("unread", _this.friend.id, 1, true);
-
-      _this.scrollDown();
-
-      _this.$emit("reorder", _this.friend);
+      _this.chats.push(e.chat);
     });
   }
 });
